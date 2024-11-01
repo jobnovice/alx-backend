@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
-"""FIFO caching"""
+"""LIFO caching"""
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
-    """implemented FIFO cache replacement policy"""
-    def __init__(self):
-        """intilaizes the object"""
-        super().__init__()
-
+class LIFOCache(BaseCaching):
+    """LIFO replacement caching implemented"""
     def put(self, key, item):
         """ Add an item in the cache
         """
@@ -17,10 +13,10 @@ class FIFOCache(BaseCaching):
         if key in self.cache_data.keys():
             self.cache_data[f"{key}"] = item
             return
-        if len(self.cache_data.values()) >= BaseCaching.MAX_ITEMS:
-            first_key = next(iter(self.cache_data))
-            print("DISCARD: {}".format(first_key))
-            self.cache_data.pop(first_key)
+        if len(self.cache_data.keys()) >= BaseCaching.MAX_ITEMS:
+            last_key = list(self.cache_data.keys())[-1]
+            print("DISCARD: {}".format(last_key))
+            self.cache_data.popitem()
         self.cache_data[f"{key}"] = item
 
     def get(self, key):

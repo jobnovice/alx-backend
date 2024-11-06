@@ -4,6 +4,14 @@
 from flask import Flask, render_template
 from flask_babel import Babel
 
+
+class Config:
+    """wrote a class that configures the flask app"""
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
 babel = Babel(app)
@@ -13,13 +21,6 @@ babel = Babel(app)
 def home():
     """defines the route the landing page"""
     return render_template('1-index.html')
-
-
-class Config:
-    """wrote a class that configures the flask app"""
-    LANGUAGES = ["en", "fr"]
-    ['BABEL_DEFAULT_LOCALE'] = 'en'
-    ['BABEL_DEFAULT_TIMEZONE'] = 'UTC'
 
 
 if __name__ == '__main__':

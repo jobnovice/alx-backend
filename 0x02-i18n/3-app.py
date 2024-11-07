@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """3-app.py defined"""
 from flask import Flask, render_template, request
-from flask_babel import Babel, gettext as _
+from flask_babel import Babel
 
 
 class Config:
@@ -17,13 +17,13 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """get local preferences for the user"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
-def home():
+def home() -> str:
     """defined the landing with translation"""
     return render_template('3-index.html')
 
